@@ -19,38 +19,40 @@ while True:
     exibir_menu()
     opc = input("Escolha uma opção: ")
 
-    if opc == "1":
-        item = input("Digite o nome do produto: ").title()
-        quantidade = input("Informe a quantidade deste produto: ")
-        lista_compras.append({"nome":item, "quantidade": quantidade})
-        print(f"{item} adicionado a lista com quantidade de {quantidade}.")
+    match opc:
+        case "1":
+            item = input("Digite o nome do produto: ").title()
+            quantidade = input("Informe a quantidade deste produto: ")
+            lista_compras.append({"nome":item, "quantidade": quantidade})
+            print(f"{item} adicionado a lista com quantidade de {quantidade}.")
     
-    elif opc == "2":
-        item_nome = input("Digite o nome do item para remover: ")
-        encontrado = False
-        for item in lista_compras:
-            if item["nome"].lower() == item_nome.lower():
-                lista_compras.remove(item)
-                print(f"'{item_nome}' removido!")
-                encontrado = True
-                break
-            if not encontrado:
-                print("Item não encontrado na lista.")
+        case "2":
+            item_nome = input("Digite o nome do item para remover: ")
+            encontrado = False
+            for item in lista_compras:
+                if item["nome"].lower() == item_nome.lower():
+                    lista_compras.remove(item)
+                    print(f"'{item_nome}' removido!")
+                    encontrado = True
+                    break
+                if not encontrado:
+                    print("Item não encontrado na lista.")
     
-    elif opc == "3":
-        if lista_compras:
+        case "3":
+            if not lista_compras:
+                print("Sua lista está vazia!")
+                continue
             print("Sua lista de compras: ")
             for i, item in enumerate(lista_compras, 1):
                 print(f"{i}° {item['nome']} - Quantidade: {item['quantidade']}")
-        else:
-            print("Sua lista está vazia!")
+        
+            
+        case "4":
+            salvar_lista()
     
-    elif opc == "4":
-        salvar_lista()
+        case "5":
+            print("Saindo...")
+            break
     
-    elif opc == "5":
-        print("Saindo...")
-        break
-    
-    else:
-        print("Opção inválida, tente novamente.")
+        case _:
+            print("Opção inválida, tente novamente.")
